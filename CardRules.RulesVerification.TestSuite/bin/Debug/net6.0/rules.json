@@ -1,0 +1,46 @@
+[
+  {
+    "WorkflowName": "AccountClassRules",
+    "Rules": [
+      {
+        "RuleName": "AccountClassRules",
+        "ErrorMessage": "Invalid Account Number!",
+        "Enabled": true,
+        "Expression": "ReHelper.CheckContains(input1.AccountClass,input1.ListToCheck)",
+        "SuccessEvent": "true"
+      }
+    ]
+  },
+  {
+    "WorkflowName": "CardHolderRule",
+    "Rules": [
+      {
+        "ErrorMessage": "Bin No validation failed!",
+        "RuleName": "CardHolderRule",
+        "Operator": "OrElse",
+        "Rules": [
+          {
+            "RuleName": "Rule1",
+            "Expression": "input1.isNewApplicant"
+          },
+          {
+            "RuleName": "Rule2",
+            "Expression": "ReHelper.CheckNotContains(input1.BinNo,input1.ExistingBinNoList)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "WorkflowName": "AccountClass&BinNoRule",
+    "Rules": [
+      {
+        "RuleName": "AccountClass&BinNoRule",
+        "ErrorMessage": "Applied account class is not allowed!",
+        "Enabled": true,
+        "Expression": "ReHelper.CheckContains(input1.AccountClass,input1.CrossCheckList)",
+        "SuccessEvent": "true"
+      }
+    ]
+  }
+]
